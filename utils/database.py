@@ -2,7 +2,8 @@ from contextlib import asynccontextmanager
 
 from loguru import logger
 from sqlmodel import SQLModel
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlmodel.ext.asyncio.session import AsyncSession
+from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 from utils import settings

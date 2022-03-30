@@ -19,7 +19,7 @@ class ACLMiddleware(BaseMiddleware):
 
         async with db_session() as session:
             session: AsyncSession
-            user = (await session.execute(select(User).where(User.userid == user_id))).first()
+            user = (await session.execute(select(User).where(User.userid == user_id))).first()[0]
             if user is None:
                 user = User(userid=user_id, username=username)
                 session.add(user)
