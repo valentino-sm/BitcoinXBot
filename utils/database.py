@@ -1,17 +1,15 @@
 from contextlib import asynccontextmanager
 
 from loguru import logger
-from sqlmodel import SQLModel
-from sqlmodel.ext.asyncio.session import AsyncSession
-from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 from utils import settings
 
 # Explicit Cache On Hack for SQLAlchemy warning
-from sqlmodel.sql.expression import Select, SelectOfScalar
-SelectOfScalar.inherit_cache = True
-Select.inherit_cache = True
+# from sqlmodel.sql.expression import Select, SelectOfScalar
+# SelectOfScalar.inherit_cache = True
+# Select.inherit_cache = True
 
 db_engine = create_async_engine(
         f"{settings.db_driver}://{settings.db_user}:{settings.db_pass}@{settings.db_host}:{settings.db_port}/{settings.db_name}",
@@ -22,9 +20,9 @@ db_engine = create_async_engine(
 
 async def db_init():
     async with db_engine.begin() as conn:
-        import models
+        from models.users import Model
         # await conn.run_sync(SQLModel.metadata.drop_all)
-        await conn.run_sync(SQLModel.metadata.create_all)
+        await conn.run_sync(Model.metadata.create_all)
 
 
 @asynccontextmanager

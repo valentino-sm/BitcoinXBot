@@ -1,7 +1,6 @@
 aiogram
 fastapi
 uvicorn[standard]
-sqlmodel
 aiomysql
 loguru
 Babel
