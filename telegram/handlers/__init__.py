@@ -1,6 +1,5 @@
 from aiogram import Dispatcher
 from aiogram.dispatcher.filters import CommandStart, CommandHelp
-from aiogram.utils import exceptions
 
 from . import common
 from .error_handler import error_handler

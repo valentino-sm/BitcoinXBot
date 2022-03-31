@@ -3,12 +3,12 @@ from loguru import logger
 
 from models.users import User
 from telegram.utils import rate_limit
-from utils.i18n import _
+from utils.i18n import gettext as _
 
 
-@rate_limit(1, 'help')
+@rate_limit(1, 'start')
 async def bot_start(msg: types.Message, user: User):
-    logger.info(user.username)
+    logger.debug(user.username)
     await msg.answer(_('''🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в топе.</b> /info
 
 Ваши фиатные балансы: ≈ 0.0000 <b>BTC</b>
