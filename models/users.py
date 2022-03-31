@@ -2,15 +2,14 @@ from typing import Optional
 
 from pydantic import condecimal
 from sqlalchemy import Column, Integer, BigInteger, String, Numeric
-from sqlalchemy.ext.declarative import declarative_base
 
-Model = declarative_base(name='Model')
+from utils.database import db
 
 
-class User(Model):
+class User(db.Model):
     __tablename__ = "main"
 
-    id: Optional[int] = Column(BigInteger(), primary_key=True, autoincrement=True)
+    id: Optional[int] = Column(BigInteger(), primary_key=True, autoincrement=True, nullable=True)
     userid: Optional[int] = Column(BigInteger(), index=True)
     username: Optional[str] = Column(String(60))
     signup: Optional[int] = Column(Integer())

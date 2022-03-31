@@ -10,7 +10,7 @@ from aiogram.types import ParseMode, Update
 
 from telegram import filters, middlewares, handlers
 from telegram.utils import commands
-from utils import settings, i18n
+from utils import database, settings, i18n
 
 router = APIRouter()
 bot = Bot(settings.bot_token, parse_mode=ParseMode.HTML, validate_token=True)
@@ -20,6 +20,7 @@ dp = Dispatcher(bot, storage=storage)
 
 @router.on_event("startup")
 async def on_startup():
+    await database.db_init()
     middlewares.setup(dp, i18n)
     filters.setup(dp)
     handlers.register_errors_handler(dp)
@@ -34,6 +35,7 @@ async def on_shutdown():
     await storage.close()
     await storage.wait_closed()
     await bot.close()
+    await database.db_close()
 
 
 async def verify_token(token: str):
