@@ -9,14 +9,14 @@ cb_start = CallbackData("user", "property", "value")
 
 
 async def get_start_markup() -> InlineKeyboardMarkup:
-    # _data = await Dispatcher.get_current().current_state().get_data()
+    _data = await Dispatcher.get_current().current_state().get_data()
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text=_("🇺🇸 English"),
-                    callback_data=cb_start.new(property="language", value="change"),
-                )
+                    text=lang_data.label,
+                    callback_data=cb_start.new(property="language", value=lang),
+                ) for lang, lang_data in i18n.AVAILABLE_LANGUAGES.items() if lang != _data["lang"]
             ],
         ]
     )

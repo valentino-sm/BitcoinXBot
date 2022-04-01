@@ -110,13 +110,10 @@ async def cmd_start(msg: types.Message):
 
 @rate_limit(3, 'change_language')
 async def cq_change_language(query: types.CallbackQuery, callback_data: dict):
-    logger.warning(query)
-    logger.warning(callback_data)
+    await query.answer()
     _data = await Dispatcher.get_current().current_state().get_data()
-    if _data["lang"] == "ru":
-        await i18n.set_user_locale("en")
-    else:
-        await i18n.set_user_locale("ru")
+    if _data["lang"] != callback_data["value"]:
+        await i18n.set_user_locale(callback_data["value"])
     await cmd_start(query.message)
 
 
@@ -124,6 +121,6 @@ async def cmd_info(msg: types.Message):
     HELP_TEXT = _(
         'Список команд: \n'
         '/start - Начать диалог\n'
-        '/help - Получить справку'
+        '/info - Получить справку'
     )
     await msg.answer(HELP_TEXT)
