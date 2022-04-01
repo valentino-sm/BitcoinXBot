@@ -1,18 +1,20 @@
 import time
 from decimal import Decimal
 
-from aiogram import types
+from aiogram import types, Dispatcher
 from loguru import logger
 
 from models.users import User
 from telegram.utils import rate_limit
-from utils.database import db
-from utils.i18n import gettext as _, i18n
+from utils.i18n import i18n
+from utils.i18n import gettext as _
 
 
 async def create_user(msg: types.Message):
+    _data = await Dispatcher.get_current().current_state().get_data()
     botname = (await msg.bot.me).username
     unixtime = int(time.time())
+    lang = _data["lang"] if "lang" in _data else i18n.default
     user = User(
         userid=msg.from_user.id,
         username=msg.from_user.username,
@@ -22,7 +24,7 @@ async def create_user(msg: types.Message):
         exp='H',
         def_cur='BTC',
         last_use=unixtime,
-        lang='ru',
+        lang=lang,
         parent=0,
         invited=0,
         earned=0,
@@ -103,9 +105,9 @@ async def bot_start(msg: types.Message):
 
 
 async def bot_help(msg: types.Message):
-    text = [
-        'Список команд: ',
-        '/start - Начать диалог',
+    HELP_TEXT = _(
+        'Список команд: \n'
+        '/start - Начать диалог\n'
         '/help - Получить справку'
-    ]
-    await msg.answer('\n'.join(text))
+    )
+    await msg.answer(HELP_TEXT)
