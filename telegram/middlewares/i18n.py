@@ -62,6 +62,8 @@ class I18nMiddleware(BaseI18nMiddleware):
 
     async def set_user_locale(self, locale: str, to_database: bool = True) -> None:
         if locale in self.AVAILABLE_LANGUAGES.keys():
+            # ContextVar
+            self.ctx_locale.set(locale)
             # Storage
             state = Dispatcher.get_current().current_state()
             await state.update_data({"lang": locale})
