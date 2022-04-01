@@ -1,7 +1,9 @@
+import random
 from dataclasses import dataclass, field
 from typing import Any, Tuple
 
 from aiogram.contrib.middlewares.i18n import I18nMiddleware as BaseI18nMiddleware
+from loguru import logger
 
 
 @dataclass
@@ -24,5 +26,7 @@ class I18nMiddleware(BaseI18nMiddleware):
     async def get_user_locale(self, action: str, args: Tuple[Any]) -> str:
         data: dict = args[-1]
         if "chat" in data:
+            logger.debug(data["chat"].language)
             return data["chat"].language or self.default
-        return self.default
+        logger.debug(f"default: {self.default}")
+        return random.choice(["ru", "en"])

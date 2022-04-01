@@ -7,18 +7,7 @@ from loguru import logger
 from models.users import User
 from telegram.utils import rate_limit
 from utils.database import db
-from utils.i18n import gettext as _
-
-START_TEXT = '''🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в топе.</b> /info
-
-Ваши фиатные балансы: ≈ {sumBTCBalance:.4f} <b>BTC</b>
-🇺🇸 {USD:.4f} <b>USD</b>
-
-Ваша криптовалюта:
-🦚 {BTC:.8f} <b>BTC</b>
-
-Заработано: 🌲 {earned:.8f} <b>BTC</b>
-Приглашено: {invited} пользователей.'''
+from utils.i18n import gettext as _, i18n
 
 
 async def create_user(msg: types.Message):
@@ -84,6 +73,17 @@ def from_none_list(_l: list) -> list:
 
 @rate_limit(1, 'start')
 async def bot_start(msg: types.Message):
+    START_TEXT = _(
+        "🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в топе.</b> /info\n"
+        "\n"
+        "Ваши фиатные балансы: ≈ {sumBTCBalance:.4f} <b>BTC</b>\n"
+        "🇺🇸 {USD:.4f} <b>USD</b>\n"
+        "\n"
+        "Ваша криптовалюта:\n"
+        "🦚 {BTC:.8f} <b>BTC</b>\n"
+        "\n"
+        "Заработано: 🌲 {earned:.8f} <b>BTC</b>\n"
+        "Приглашено: {invited} пользователей.")
     user = await User.query.where(User.userid == msg.from_user.id).gino.first()
     if not user:
         user = await create_user(msg)
@@ -91,7 +91,7 @@ async def bot_start(msg: types.Message):
         user.BTC,
         user.BTC_blocked,
     ]), start=Decimal(0))
-    await msg.answer(_(START_TEXT).format(
+    await msg.answer(START_TEXT.format(
         **from_none_dict({
             "sumBTCBalance": sumBTCBalance,
             "USD": user.USD,
