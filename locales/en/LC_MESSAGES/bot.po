@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-01 04:12+0500\n"
+"POT-Creation-Date: 2022-04-01 17:38+0500\n"
 "PO-Revision-Date: 2022-04-01 04:14+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: telegram/handlers/common.py:12
+#: telegram/handlers/common.py:79
 msgid ""
 "🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей"
 " с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в "
@@ -44,6 +44,17 @@ msgstr ""
 "\n"
 "Earned: 🌲 {earned:.8f} <b>BTC</b>\n"
 "Invited: {invited} users."
+
+#: telegram/handlers/common.py:124
+msgid ""
+"Список команд: \n"
+"/start - Начать диалог\n"
+"/help - Получить справку"
+msgstr ""
+
+#: telegram/keyboards/common.py:17
+msgid "🇺🇸 English"
+msgstr "🇷🇺 Русский"
 
 #: venv/Lib/site-packages/click/_termui_impl.py:496
 msgid "{editor}: Editing failed"

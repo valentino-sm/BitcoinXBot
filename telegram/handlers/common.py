@@ -5,6 +5,7 @@ from aiogram import types, Dispatcher
 from loguru import logger
 
 from models.users import User
+from telegram.keyboards.common import get_start_markup
 from telegram.utils import rate_limit
 from utils.i18n import i18n
 from utils.i18n import gettext as _
@@ -74,7 +75,7 @@ def from_none_list(_l: list) -> list:
 
 
 @rate_limit(1, 'start')
-async def bot_start(msg: types.Message):
+async def cmd_start(msg: types.Message):
     START_TEXT = _(
         "🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в топе.</b> /info\n"
         "\n"
@@ -86,25 +87,40 @@ async def bot_start(msg: types.Message):
         "\n"
         "Заработано: 🌲 {earned:.8f} <b>BTC</b>\n"
         "Приглашено: {invited} пользователей.")
-    user = await User.query.where(User.userid == msg.from_user.id).gino.first()
+    userid = types.User.get_current().id
+    user = await User.query.where(User.userid == userid).gino.first()
     if not user:
         user = await create_user(msg)
     sumBTCBalance = sum(from_none_list([
         user.BTC,
         user.BTC_blocked,
     ]), start=Decimal(0))
-    await msg.answer(START_TEXT.format(
-        **from_none_dict({
-            "sumBTCBalance": sumBTCBalance,
-            "USD": user.USD,
-            "BTC": user.BTC,
-            "earned": user.earned,
-            "invited": user.invited
-        })
-    ))
+    await msg.answer(
+        text=START_TEXT.format(
+            **from_none_dict({
+                "sumBTCBalance": sumBTCBalance,
+                "USD": user.USD,
+                "BTC": user.BTC,
+                "earned": user.earned,
+                "invited": user.invited
+            })),
+        reply_markup=await get_start_markup()
+    )
 
 
-async def bot_help(msg: types.Message):
+@rate_limit(3, 'change_language')
+async def cq_change_language(query: types.CallbackQuery, callback_data: dict):
+    logger.warning(query)
+    logger.warning(callback_data)
+    _data = await Dispatcher.get_current().current_state().get_data()
+    if _data["lang"] == "ru":
+        await i18n.set_user_locale("en")
+    else:
+        await i18n.set_user_locale("ru")
+    await cmd_start(query.message)
+
+
+async def cmd_info(msg: types.Message):
     HELP_TEXT = _(
         'Список команд: \n'
         '/start - Начать диалог\n'
