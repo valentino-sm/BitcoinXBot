@@ -1,4 +1,3 @@
-import time
 from decimal import Decimal
 
 from aiogram import types, Dispatcher
@@ -14,53 +13,13 @@ from utils.i18n import gettext as _
 async def create_user(msg: types.Message):
     _data = await Dispatcher.get_current().current_state().get_data()
     botname = (await msg.bot.me).username
-    unixtime = int(time.time())
     lang = _data["lang"] if "lang" in _data else i18n.default
     user = User(
         userid=msg.from_user.id,
         username=msg.from_user.username,
-        signup=unixtime,
-        i=0,
-        v=0,
-        exp='H',
-        def_cur='BTC',
-        last_use=unixtime,
         lang=lang,
-        parent=0,
-        invited=0,
-        earned=0,
-        do=0,
-        BalUpdated=unixtime,
-        USD=0,
-        USDX=0,
-        EUR=0,
-        EURX=0,
-        RUB=0,
-        RUBX=0,
-        UAH=0,
-        UAHX=0,
-        BYN=0,
-        BYNX=0,
-        GEL=0,
-        GELX=0,
-        UZS=0,
-        UZSX=0,
-        KZT=0,
-        KZTX=0,
-        CNY=0,
-        CNYX=0,
         BTC=Decimal("0.00010000"),
-        BTC_blocked=0,
-        UBTC=0,
-        UBTC_blocked=0,
-        ETH=0,
-        ETH_blocked=0,
-        BNB=0,
-        BNBX=0,
-        m_id=0,
-        osl=0,
         bot=botname,
-        pr=0,
     )
     await user.create()
     return user
@@ -108,7 +67,7 @@ async def cmd_start(msg: types.Message):
     )
 
 
-@rate_limit(3, 'change_language')
+@rate_limit(3, 'language')
 async def cq_change_language(query: types.CallbackQuery, callback_data: dict):
     await query.answer()
     _data = await Dispatcher.get_current().current_state().get_data()
