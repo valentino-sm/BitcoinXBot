@@ -4,7 +4,6 @@ from typing import Any, Tuple, Optional
 from aiogram import types, Dispatcher
 from aiogram.contrib.middlewares.i18n import I18nMiddleware as BaseI18nMiddleware
 from babel import Locale
-from loguru import logger
 
 from models.users import User
 
@@ -26,6 +25,9 @@ class I18nMiddleware(BaseI18nMiddleware):
         # "uk": LanguageData("🇺🇦", "Українська"),
     }
 
+    async def get_default_locale(self):
+        return str(next(iter(self.AVAILABLE_LANGUAGES)))
+
     async def setup_new_user_locale(self) -> str:
         """
         Only for updates we don't have locale in Storage
@@ -44,7 +46,7 @@ class I18nMiddleware(BaseI18nMiddleware):
         if locale and locale.language in self.AVAILABLE_LANGUAGES.keys():
             result = locale.language
         else:
-            result = str(next(iter(self.AVAILABLE_LANGUAGES)))
+            result = self.get_default_locale()
 
         await self.set_user_locale(result)
 

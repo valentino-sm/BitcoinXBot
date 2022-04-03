@@ -1,13 +1,13 @@
 import asyncio
 import random
 from json import JSONDecodeError
-from typing import List
 
 from fastapi import APIRouter, BackgroundTasks, Depends, Request, Response, status, HTTPException
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.types import ParseMode, Update
 
+from components.account import ctxDataSource, AccountDataSource
 from telegram import filters, middlewares, handlers
 from telegram.utils import commands
 from utils import database, settings, i18n
@@ -44,17 +44,18 @@ async def verify_token(token: str):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 
 
-async def proceed_update(updates: List[Update]) -> None:
+async def proceed_update(update: Update) -> None:
+    ctxDataSource.set(AccountDataSource.Telegram)
     Bot.set_current(bot)
     Dispatcher.set_current(dp)
-    await dp.process_updates(updates)
+    await dp.process_update(update)
 
 
 @router.post(settings.prefix_webhook + "/{token}", dependencies=[Depends(verify_token)], include_in_schema=False)
 async def execute(req: Request, background_tasks: BackgroundTasks) -> Response:
     try:
-        updates = [Update(**(await req.json()))]
+        update = Update(**(await req.json()))
     except JSONDecodeError:
         return Response(status_code=status.HTTP_400_BAD_REQUEST)
-    background_tasks.add_task(proceed_update, updates)
+    background_tasks.add_task(proceed_update, update)
     return Response(status_code=status.HTTP_200_OK)

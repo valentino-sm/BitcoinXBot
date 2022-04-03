@@ -1,36 +1,11 @@
-from decimal import Decimal
-
 from aiogram import types, Dispatcher
-from loguru import logger
 
-from models.users import User
+from services.common import start
 from telegram.keyboards.common import get_start_markup
 from telegram.utils import rate_limit
 from utils.i18n import i18n
 from utils.i18n import gettext as _
-
-
-async def create_user(msg: types.Message):
-    _data = await Dispatcher.get_current().current_state().get_data()
-    botname = (await msg.bot.me).username
-    lang = _data["lang"] if "lang" in _data else i18n.default
-    user = User(
-        userid=msg.from_user.id,
-        username=msg.from_user.username,
-        lang=lang,
-        BTC=Decimal("0.00010000"),
-        bot=botname,
-    )
-    await user.create()
-    return user
-
-
-def from_none_dict(_d: dict) -> dict:
-    return {x: y if y else 0 for (x, y) in _d.items()}
-
-
-def from_none_list(_l: list) -> list:
-    return [x if x else 0 for x in _l]
+from utils.misc import from_none_dict
 
 
 @rate_limit(1, 'start')
@@ -46,23 +21,10 @@ async def cmd_start(msg: types.Message):
         "\n"
         "Заработано: 🌲 {earned:.8f} <b>BTC</b>\n"
         "Приглашено: {invited} пользователей.")
-    userid = types.User.get_current().id
-    user = await User.query.where(User.userid == userid).gino.first()
-    if not user:
-        user = await create_user(msg)
-    sumBTCBalance = sum(from_none_list([
-        user.BTC,
-        user.BTC_blocked,
-    ]), start=Decimal(0))
+
+    start_data = await start()
     await msg.answer(
-        text=START_TEXT.format(
-            **from_none_dict({
-                "sumBTCBalance": sumBTCBalance,
-                "USD": user.USD,
-                "BTC": user.BTC,
-                "earned": user.earned,
-                "invited": user.invited
-            })),
+        text=START_TEXT.format(**from_none_dict(start_data._asdict())),
         reply_markup=await get_start_markup()
     )
 
