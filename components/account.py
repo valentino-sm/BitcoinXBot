@@ -1,22 +1,29 @@
+from abc import ABCMeta, abstractmethod
+from typing import NamedTuple, Type
 from contextvars import ContextVar
-from typing import Type, Union
-
-from enum import Enum, auto
-
-from components.account_telegram import AccountTelegram
 
 
-class AccountDataSource(Enum):
-    Telegram = auto()
-    Web = auto()
+class AccountData(NamedTuple):
+    userid: int
+    username: str
+    lang: str
 
 
-ctxDataSource: ContextVar[AccountDataSource] = ContextVar('var')
+class AccountMeta(metaclass=ABCMeta):
+    @staticmethod
+    @abstractmethod
+    async def get_me() -> str:
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def get_userid() -> int:
+        pass
+
+    @staticmethod
+    @abstractmethod
+    async def get_data() -> AccountData:
+        pass
 
 
-def current() -> Union[Type[AccountTelegram], None]:
-    if ctxDataSource.get() is AccountDataSource.Telegram:
-        return AccountTelegram
-    elif ctxDataSource.get() is AccountDataSource.Web:
-        return None
-    return None
+account_ctx: ContextVar[Type[AccountMeta]] = ContextVar('account_source')

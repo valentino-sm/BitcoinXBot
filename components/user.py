@@ -1,14 +1,13 @@
 from decimal import Decimal
 
-from components import account
-from components.account_meta import AccountData
+from components.account import account_ctx, AccountData
 from models.users import User as _User
 
 
 class User(_User):
     @classmethod
     async def create_default(cls) -> _User:
-        current_account = account.current()
+        current_account = account_ctx.get()
         account_data: AccountData = await current_account.get_data()
         user = _User(
             userid=account_data.userid,
@@ -23,7 +22,7 @@ class User(_User):
 
     @staticmethod
     async def get() -> _User:
-        userid = account.current().get_userid()
+        userid = account_ctx.get().get_userid()
         user = await User.query.where(User.userid == userid).gino.first()
         if not user:
             user = await User.create_default()

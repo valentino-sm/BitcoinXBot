@@ -7,7 +7,8 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.types import ParseMode, Update
 
-from components.account import ctxDataSource, AccountDataSource
+from components.account import account_ctx
+from components.account_telegram import AccountTelegram
 from telegram import filters, middlewares, handlers
 from telegram.utils import commands
 from utils import database, settings, i18n
@@ -45,7 +46,7 @@ async def verify_token(token: str):
 
 
 async def proceed_update(update: Update) -> None:
-    ctxDataSource.set(AccountDataSource.Telegram)
+    account_ctx.set(AccountTelegram)
     Bot.set_current(bot)
     Dispatcher.set_current(dp)
     await dp.process_update(update)

@@ -1,6 +1,6 @@
 from aiogram import Dispatcher, types
 
-from components.account_meta import AccountMeta, AccountData
+from components.account import AccountMeta, AccountData
 from utils import i18n
 from utils.async_lru import alru_cache
 
