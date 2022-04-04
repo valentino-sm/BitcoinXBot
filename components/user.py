@@ -1,15 +1,15 @@
 from decimal import Decimal
 
 from components.account import account_ctx, AccountData
-from models.users import User as _User
+from models.users import User as UserModel
 
 
-class User(_User):
-    @classmethod
-    async def create_default(cls) -> _User:
+class User:
+    @staticmethod
+    async def create_default() -> UserModel:
         current_account = account_ctx.get()
         account_data: AccountData = await current_account.get_data()
-        user = _User(
+        user = UserModel(
             userid=account_data.userid,
             username=account_data.username,
             lang=account_data.lang,
@@ -21,9 +21,9 @@ class User(_User):
         return user
 
     @staticmethod
-    async def get() -> _User:
+    async def get() -> UserModel:
         userid = account_ctx.get().get_userid()
-        user = await User.query.where(User.userid == userid).gino.first()
+        user = await UserModel.query.where(UserModel.userid == userid).gino.first()
         if not user:
             user = await User.create_default()
         return user
