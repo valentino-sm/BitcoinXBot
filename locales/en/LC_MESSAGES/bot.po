@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-01 17:38+0500\n"
+"POT-Creation-Date: 2022-04-06 19:44+0500\n"
 "PO-Revision-Date: 2022-04-01 04:14+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,15 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: telegram/handlers/common.py:79
+#: telegram/handlers/common.py:13
 msgid ""
 "🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей"
 " с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в "
 "топе.</b> /info\n"
 "\n"
-"Ваши фиатные балансы: ≈ {sumBTCBalance:.4f} <b>BTC</b>\n"
-"🇺🇸 {USD:.4f} <b>USD</b>\n"
-"\n"
+"Ваши фиатные балансы: ≈ {sum_fiat_balance:.4f} <b>BTC</b>\n"
+"{assets}\n"
 "Ваша криптовалюта:\n"
 "🦚 {BTC:.8f} <b>BTC</b>\n"
 "\n"
@@ -36,25 +35,59 @@ msgstr ""
 "🎮🌲 <b>BitcoinXBot</b> • secure wallet and payment processor with flawless"
 " interface. <b>Pin to top.</b> /info\n"
 "\n"
-"Your fiat balances: ≈ {sumBTCBalance:.4f} <b>BTC</b>\n"
-"🇺🇸 {USD:.4f} <b>USD</b>\n"
-"\n"
+"Your fiat balances: ≈ {sum_fiat_balance:.4f} <b>BTC</b>\n"
+"{assets}\n"
 "Your cryptocurrency:\n"
 "🦚 {BTC:.8f} <b>BTC</b>\n"
 "\n"
 "Earned: 🌲 {earned:.8f} <b>BTC</b>\n"
 "Invited: {invited} users."
 
-#: telegram/handlers/common.py:124
+#: telegram/handlers/common.py:25
+msgid "Внести RUB, USD"
+msgstr "Deposit RUB, USD"
+
+#: telegram/handlers/common.py:26
+msgid "Вывести RUB, USD"
+msgstr "Withdraw RUB, USD"
+
+#: telegram/handlers/common.py:27
+msgid "📥 Внести BTC"
+msgstr "📥 Deposit BTC"
+
+#: telegram/handlers/common.py:28
+msgid "📤 Вывести BTC"
+msgstr "📤 Withdraw BTC"
+
+#: telegram/handlers/common.py:29
+msgid "Заменить 🦚 BTC → 🥬 УльтраЧистые BTC"
+msgstr "Replace 🦚 BTC → 🥬 UltraClean BTC"
+
+#: telegram/handlers/common.py:30
+msgid "Перевести 🥬 УльтраЧистые BTC → 🦚 BTC"
+msgstr "Transfer 🥬 UltraClean BTC → 🦚 BTC"
+
+#: telegram/handlers/common.py:31
+msgid "🍇 Услуги"
+msgstr "🍇 Services"
+
+#: telegram/handlers/common.py:32
+msgid "🎛 Настройки"
+msgstr "🎛 Settings"
+
+#: telegram/handlers/common.py:33
+msgid "♻"
+msgstr ""
+
+#: telegram/handlers/common.py:59
 msgid ""
 "Список команд: \n"
 "/start - Начать диалог\n"
-"/help - Получить справку"
+"/info - Получить справку"
 msgstr ""
-
-#: telegram/keyboards/common.py:17
-msgid "🇺🇸 English"
-msgstr "🇷🇺 Русский"
+"List Commands \n"
+"/start - Start\n"
+"/info - Information"
 
 #: venv/Lib/site-packages/click/_termui_impl.py:496
 msgid "{editor}: Editing failed"
@@ -345,4 +378,13 @@ msgid "{len_type} values are required, but {len_value} was given."
 msgid_plural "{len_type} values are required, but {len_value} were given."
 msgstr[0] ""
 msgstr[1] ""
+
+#~ msgid ""
+#~ "Список команд: \n"
+#~ "/start - Начать диалог\n"
+#~ "/help - Получить справку"
+#~ msgstr ""
+
+#~ msgid "🇺🇸 English"
+#~ msgstr "🇷🇺 Русский"
 

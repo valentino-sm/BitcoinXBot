@@ -3,9 +3,11 @@ from typing import NamedTuple
 from aiogram import Dispatcher
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.callback_data import CallbackData
+from loguru import logger
 
 from telegram.keyboards.inline.consts import InlineConstructor
 from utils import i18n
+from utils.async_lru import alru_cache
 
 cb_start = CallbackData("user", "property", "value")
 
@@ -21,7 +23,11 @@ class StartKeyboardText(NamedTuple):
     settings: str
     refresh: str
 
+    def __hash__(self):
+        return hash(self.settings)
 
+
+@alru_cache
 async def get_start_markup(KBD_TEXT: StartKeyboardText) -> InlineKeyboardMarkup:
     btn_fiat = [{"text": KBD_TEXT.fiat_deposit, "cb": ({"property": "fiat", "value": "deposit"}, cb_start)},
                 {"text": KBD_TEXT.fiat_withdraw, "cb": ({"property": "fiat", "value": "withdraw"}, cb_start)}]
