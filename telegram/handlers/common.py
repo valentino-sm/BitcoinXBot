@@ -1,6 +1,6 @@
 from aiogram import types, Dispatcher
 
-from services.common import start
+from services.common import start, StartData
 from telegram.keyboards.common import get_start_markup
 from telegram.utils import rate_limit
 from utils.i18n import i18n
@@ -14,7 +14,7 @@ async def cmd_start(msg: types.Message):
         "🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в топе.</b> /info\n"
         "\n"
         "Ваши фиатные балансы: ≈ {sumBTCBalance:.4f} <b>BTC</b>\n"
-        "🇺🇸 {USD:.4f} <b>USD</b>\n"
+        "{assets}"
         "\n"
         "Ваша криптовалюта:\n"
         "🦚 {BTC:.8f} <b>BTC</b>\n"
@@ -22,9 +22,15 @@ async def cmd_start(msg: types.Message):
         "Заработано: 🌲 {earned:.8f} <b>BTC</b>\n"
         "Приглашено: {invited} пользователей.")
 
-    start_data = await start()
+    data: StartData = await start()
+    assets = "".join([
+        f"🇺🇸 {data.USD:.4f} <b>USD</b>\n" if data.USD else "",
+        f"🇷🇺 {data.RUB:.4f} <b>RUB</b>\n" if data.RUB else "",
+        f"🇪🇺 {data.EUR:.4f} <b>EUR</b>\n" if data.EUR else "",
+        f"🇨🇳 {data.CNY:.4f} <b>CNY</b>\n" if data.CNY else "",
+    ])
     await msg.answer(
-        text=START_TEXT.format(**from_none_dict(start_data._asdict())),
+        text=START_TEXT.format(**from_none_dict(data._asdict()), assets=assets),
         reply_markup=await get_start_markup()
     )
 

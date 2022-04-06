@@ -15,13 +15,15 @@ class User:
             lang=account_data.lang,
             BTC=Decimal("0.00010000"),
             USD=Decimal("1000"),
+            RUB=Decimal("500"),
+            EUR=Decimal("1"),
             bot=await current_account.get_me(),
         )
         await user.create()
         return user
 
     @staticmethod
-    async def get() -> UserModel:
+    async def get_current() -> UserModel:
         userid = account_ctx.get().get_userid()
         user = await UserModel.query.where(UserModel.userid == userid).gino.first()
         if not user:
