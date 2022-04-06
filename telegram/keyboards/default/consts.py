@@ -15,7 +15,7 @@ class DefaultConstructor:
     properties_amount = 1
 
     @staticmethod
-    def _create_kb(
+    def create_kb(
             actions: List[Union[str, Dict[str, Union[str, bool, KeyboardButtonPollType]]]],
             schema: List[int],
             resize_keyboard: bool = True,

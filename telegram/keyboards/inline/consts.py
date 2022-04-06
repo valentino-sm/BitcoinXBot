@@ -17,7 +17,7 @@ class InlineConstructor:
     properties_amount = 2
 
     @staticmethod
-    def _create_kb(
+    def create_kb(
             actions: List[Dict[str, Union[str, bool, Tuple[Dict[str, str], CallbackData], LoginUrl, CallbackGame]]],
             schema: List[int]
     ) -> InlineKeyboardMarkup:

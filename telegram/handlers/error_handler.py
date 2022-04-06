@@ -27,6 +27,11 @@ async def error_handler(update: types.Update, exception: exceptions.TelegramAPIE
         logger.exception(f'CantParseEntities: {exception} \nUpdate: {update}')
         return True
 
+    if isinstance(exception, exceptions.InvalidQueryID):
+        # or here
+        logger.exception(f'InvalidQueryID: {exception} \nUpdate: {update}')
+        return False
+
     #  MUST BE THE LAST CONDITION (ЭТО УСЛОВИЕ ВСЕГДА ДОЛЖНО БЫТЬ В КОНЦЕ)
     if isinstance(exception, exceptions.TelegramAPIError):
         logger.exception(f'TelegramAPIError: {exception} \nUpdate: {update}')

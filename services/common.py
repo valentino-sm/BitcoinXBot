@@ -10,7 +10,7 @@ from utils.misc import from_none_list
 
 
 class StartData(NamedTuple):
-    sumBTCBalance: Decimal
+    sum_fiat_balance: Decimal
     BTC: Decimal
     USD: Decimal
     RUB: Decimal
@@ -20,7 +20,7 @@ class StartData(NamedTuple):
     invited: int
 
 
-async def sumBTCBalance(user: UserModel, rates: Rates) -> Decimal:
+async def sum_fiat_balance(user: UserModel, rates: Rates) -> Decimal:
     if not isinstance(user, UserModel):
         return Decimal(0)
     if not isinstance(rates, Rates):
@@ -28,14 +28,12 @@ async def sumBTCBalance(user: UserModel, rates: Rates) -> Decimal:
     logic_mult = lambda a, b: a*b if a and b else 0
     logic_div = lambda n, d: d and n / d or 0
     l1 = [
-        user.BTC,
         user.USD,
         user.RUB,
         user.EUR,
         user.CNY
     ]
     l2 = [
-        1,
         rates.BitMEX_BTC_USD,
         logic_mult(rates.USD_RUB, rates.BitMEX_BTC_USD),
         logic_mult(rates.EUR_RUB, rates.BitMEX_BTC_USD),
@@ -48,9 +46,8 @@ async def start() -> StartData:
     user: UserModel = await User.get_current()
     rates: Rates = await Rates.query.gino.first()
 
-    _sumBTCBalance = await sumBTCBalance(user, rates)
     return StartData(
-        sumBTCBalance=_sumBTCBalance,
+        sum_fiat_balance=await sum_fiat_balance(user, rates),
         BTC=user.BTC,
         USD=user.USD,
         RUB=user.RUB,

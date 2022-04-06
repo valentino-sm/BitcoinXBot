@@ -1,7 +1,7 @@
 from aiogram import types, Dispatcher
 
 from services.common import start, StartData
-from telegram.keyboards.common import get_start_markup
+from telegram.keyboards.common import get_start_markup, StartKeyboardText
 from telegram.utils import rate_limit
 from utils.i18n import i18n
 from utils.i18n import gettext as _
@@ -13,7 +13,7 @@ async def cmd_start(msg: types.Message):
     START_TEXT = _(
         "🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в топе.</b> /info\n"
         "\n"
-        "Ваши фиатные балансы: ≈ {sumBTCBalance:.4f} <b>BTC</b>\n"
+        "Ваши фиатные балансы: ≈ {sum_fiat_balance:.4f} <b>BTC</b>\n"
         "{assets}"
         "\n"
         "Ваша криптовалюта:\n"
@@ -21,6 +21,17 @@ async def cmd_start(msg: types.Message):
         "\n"
         "Заработано: 🌲 {earned:.8f} <b>BTC</b>\n"
         "Приглашено: {invited} пользователей.")
+    KBD_TEXT = StartKeyboardText(
+        fiat_deposit=_("Внести RUB, USD"),
+        fiat_withdraw=_("Вывести RUB, USD"),
+        btc_deposit=_("📥 Внести BTC"),
+        btc_withdraw=_("📤 Вывести BTC"),
+        btc_to_ultra=_("Заменить 🦚 BTC → 🥬 УльтраЧистые BTC"),
+        ultra_to_btc=_("Перевести 🥬 УльтраЧистые BTC → 🦚 BTC"),
+        services=_("🍇 Услуги"),
+        settings=_("🎛 Настройки"),
+        refresh=_("♻"),
+    )
 
     data: StartData = await start()
     assets = "".join([
@@ -31,7 +42,7 @@ async def cmd_start(msg: types.Message):
     ])
     await msg.answer(
         text=START_TEXT.format(**from_none_dict(data._asdict()), assets=assets),
-        reply_markup=await get_start_markup()
+        reply_markup=await get_start_markup(KBD_TEXT)
     )
 
 
