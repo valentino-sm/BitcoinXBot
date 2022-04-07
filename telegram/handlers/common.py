@@ -63,12 +63,3 @@ async def cq_change_language(query: types.CallbackQuery, callback_data: dict, st
     if _data["lang"] != callback_data["value"]:
         await i18n.set_user_locale(callback_data["value"])
     await cmd_start(query)
-
-
-async def cmd_info(msg: types.Message):
-    HELP_TEXT = _(
-        'Список команд: \n'
-        '/start - Начать диалог\n'
-        '/info - Получить справку'
-    )
-    await msg.answer(HELP_TEXT)
