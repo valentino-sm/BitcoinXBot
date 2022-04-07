@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-06 19:44+0500\n"
+"POT-Creation-Date: 2022-04-07 10:54+0500\n"
 "PO-Revision-Date: 2022-04-01 04:14+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -88,6 +88,42 @@ msgstr ""
 "List Commands \n"
 "/start - Start\n"
 "/info - Information"
+
+#: telegram/utils/commands.py:10
+msgid "About this bot /// о боте"
+msgstr ""
+
+#: telegram/utils/commands.py:11
+msgid "Advanced /// расширенные функции"
+msgstr ""
+
+#: telegram/utils/commands.py:12
+msgid "Faq /// ответы на вопросы"
+msgstr ""
+
+#: telegram/utils/commands.py:13
+msgid "Rates explanation /// объяснение курсов обмена"
+msgstr ""
+
+#: telegram/utils/commands.py:14
+msgid "Sberbank sbp /// сбербанк сбп"
+msgstr ""
+
+#: telegram/utils/commands.py:15
+msgid "Tinkoff atms /// банкоматы тинькофф"
+msgstr ""
+
+#: telegram/utils/commands.py:16
+msgid "Tinkoff (usd) atms /// банкоматы тинькофф (usd)"
+msgstr ""
+
+#: telegram/utils/commands.py:17
+msgid "(re)start bot /// перезапустить бот"
+msgstr ""
+
+#: telegram/utils/commands.py:18
+msgid "Your id /// ваш id"
+msgstr ""
 
 #: venv/Lib/site-packages/click/_termui_impl.py:496
 msgid "{editor}: Editing failed"
