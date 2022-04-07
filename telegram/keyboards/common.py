@@ -35,10 +35,10 @@ async def get_start_markup(KBD_TEXT: StartKeyboardText) -> InlineKeyboardMarkup:
                {"text": KBD_TEXT.btc_withdraw, "cb": ({"property": "btc", "value": "withdraw"}, cb_start)}]
     btn_ultra = [{"text": KBD_TEXT.btc_to_ultra, "cb": ({"property": "ultra", "value": "to"}, cb_start)},
                  {"text": KBD_TEXT.ultra_to_btc, "cb": ({"property": "ultra", "value": "from"}, cb_start)}]
-    btn_services = [{"text": KBD_TEXT.services, "cb": ({"property": "services", "value": "go"}, cb_start)}]
+    btn_services = [{"text": KBD_TEXT.services, "cb": ({"property": "start", "value": "services"}, cb_start)}]
 
-    btn_other = [{"text": KBD_TEXT.settings, "cb": ({"property": "settings", "value": "go"}, cb_start)},
-                 {"text": KBD_TEXT.refresh, "cb": ({"property": "refresh", "value": "go"}, cb_start)}]
+    btn_other = [{"text": KBD_TEXT.settings, "cb": ({"property": "start", "value": "settings"}, cb_start)},
+                 {"text": KBD_TEXT.refresh, "cb": ({"property": "start", "value": "refresh"}, cb_start)}]
 
     _data = await Dispatcher.get_current().current_state().get_data()
     btn_lang = [{"text": lang_text.label,

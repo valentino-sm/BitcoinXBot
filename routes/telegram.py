@@ -24,7 +24,7 @@ async def on_startup():
     middlewares.setup(dp, i18n)
     filters.setup(dp)
     handlers.register_errors_handler(dp)
-    handlers.register_handlers_base(dp)
+    handlers.register_handlers_common(dp)
     await commands.register(bot)
     if (await bot.get_webhook_info()).url != settings.webhook_url:
         await bot.set_webhook(settings.webhook_url)

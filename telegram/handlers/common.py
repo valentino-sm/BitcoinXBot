@@ -1,4 +1,9 @@
+from typing import Union
+
 from aiogram import types, Dispatcher
+from aiogram.dispatcher import FSMContext
+from aiogram.types import User
+from loguru import logger
 
 from services.common import start, StartData
 from telegram.keyboards.common import get_start_markup, StartKeyboardText
@@ -9,7 +14,7 @@ from utils.misc import from_none_dict
 
 
 @rate_limit(1, 'start')
-async def cmd_start(msg: types.Message):
+async def cmd_start(msg: Union[types.Message, types.CallbackQuery] = None):
     START_TEXT = _(
         "🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в топе.</b> /info\n"
         "\n"
@@ -40,19 +45,24 @@ async def cmd_start(msg: types.Message):
         f"🇪🇺 {data.EUR:.4f} <b>EUR</b>\n" if data.EUR else "",
         f"🇨🇳 {data.CNY:.4f} <b>CNY</b>\n" if data.CNY else "",
     ])
-    await msg.answer(
-        text=START_TEXT.format(**from_none_dict(data._asdict()), assets=assets),
-        reply_markup=await get_start_markup(KBD_TEXT)
-    )
+    answer = {"text": START_TEXT.format(**from_none_dict(data._asdict()), assets=assets),
+              "reply_markup": await get_start_markup(KBD_TEXT)}
+    if isinstance(msg, types.Message):
+        await msg.answer(**answer)
+    elif isinstance(msg, types.CallbackQuery):
+        await msg.message.answer(**answer)
+    else:
+        logger.warning("None for both Message & CallbackQuery provided")
+        await Dispatcher.get_current().bot.send_message(chat_id=User.get_current().id, **answer)
 
 
 @rate_limit(3, 'language')
-async def cq_change_language(query: types.CallbackQuery, callback_data: dict):
+async def cq_change_language(query: types.CallbackQuery, callback_data: dict, state: FSMContext):
     await query.answer()
-    _data = await Dispatcher.get_current().current_state().get_data()
+    _data = await state.get_data()
     if _data["lang"] != callback_data["value"]:
         await i18n.set_user_locale(callback_data["value"])
-    await cmd_start(query.message)
+    await cmd_start(query)
 
 
 async def cmd_info(msg: types.Message):
