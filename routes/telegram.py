@@ -26,8 +26,8 @@ async def on_startup():
     handlers.register_errors_handler(dp)
     handlers.register_handlers_base(dp)
     await commands.register(bot)
-    await bot.delete_webhook()
-    await bot.set_webhook(settings.webhook_url)
+    if (await bot.get_webhook_info()).url != settings.webhook_url:
+        await bot.set_webhook(settings.webhook_url)
 
 
 @router.on_event("shutdown")
