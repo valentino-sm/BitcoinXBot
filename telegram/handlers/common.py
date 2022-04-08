@@ -35,7 +35,7 @@ async def cmd_start(msg: Union[types.Message, types.CallbackQuery] = None):
         ultra_to_btc=_("Перевести 🥬 УльтраЧистые BTC → 🦚 BTC"),
         services=_("🍇 Услуги"),
         settings=_("🎛 Настройки"),
-        refresh=_("♻"),
+        refresh="♻",
     )
 
     data: StartData = await start()

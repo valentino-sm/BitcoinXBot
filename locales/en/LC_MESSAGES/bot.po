@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-07 10:54+0500\n"
+"POT-Creation-Date: 2022-04-08 08:59+0500\n"
 "PO-Revision-Date: 2022-04-01 04:14+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: telegram/handlers/common.py:13
+#: telegram/handlers/common.py:18
 msgid ""
 "🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей"
 " с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в "
@@ -43,51 +43,134 @@ msgstr ""
 "Earned: 🌲 {earned:.8f} <b>BTC</b>\n"
 "Invited: {invited} users."
 
-#: telegram/handlers/common.py:25
+#: telegram/handlers/common.py:30
 msgid "Внести RUB, USD"
 msgstr "Deposit RUB, USD"
 
-#: telegram/handlers/common.py:26
+#: telegram/handlers/common.py:31
 msgid "Вывести RUB, USD"
 msgstr "Withdraw RUB, USD"
 
-#: telegram/handlers/common.py:27
+#: telegram/handlers/common.py:32
 msgid "📥 Внести BTC"
 msgstr "📥 Deposit BTC"
 
-#: telegram/handlers/common.py:28
+#: telegram/handlers/common.py:33
 msgid "📤 Вывести BTC"
 msgstr "📤 Withdraw BTC"
 
-#: telegram/handlers/common.py:29
+#: telegram/handlers/common.py:34
 msgid "Заменить 🦚 BTC → 🥬 УльтраЧистые BTC"
 msgstr "Replace 🦚 BTC → 🥬 UltraClean BTC"
 
-#: telegram/handlers/common.py:30
+#: telegram/handlers/common.py:35
 msgid "Перевести 🥬 УльтраЧистые BTC → 🦚 BTC"
 msgstr "Transfer 🥬 UltraClean BTC → 🦚 BTC"
 
-#: telegram/handlers/common.py:31
+#: telegram/handlers/common.py:36
 msgid "🍇 Услуги"
 msgstr "🍇 Services"
 
-#: telegram/handlers/common.py:32
+#: telegram/handlers/common.py:37
 msgid "🎛 Настройки"
 msgstr "🎛 Settings"
 
-#: telegram/handlers/common.py:33
-msgid "♻"
+#: telegram/handlers/info.py:11
+msgid "🌲 МЕНЮ"
+msgstr "🌲 MENU"
+
+#: telegram/handlers/info.py:15
+msgid ""
+"🦚 <b>Кратко о боте</b>\n"
+"        \n"
+"Самый популярный способ использования бота такой:\n"
+"BTC → UltraClean BTC → RUB\n"
+"\n"
+"🌲 люди заводят битки (BTC) →\n"
+"🥬 меняют их на УльтраЧистые битки (UltraClean BTC) →\n"
+"🍇 выводят на внешние адреса или меняют в USD →\n"
+"💶 выводят USD при необходимости в <b>рубли (RUB)</b> <i>онлайн</i> в "
+"любой банк РФ по Системе Быстрых Платежей (или забирают <i>наличные</i>) "
+"через @ColdSig. Например, сейчас комиссия за вывод крипты в рубли - всего"
+" <code>3.50%</code>.\n"
+"\n"
+"💶 Также через @ColdSig можно покупать и продавать крипту в любых объёмах "
+"за нал в любое время дня и ночи 24/7. 🌃 Очень удобно и безопасно.\n"
+"\n"
+"Прочие функции этого бота:\n"
+"\n"
+"— <b>Кошелёк</b> - безопасный <i>кошелёк-хранилище, биржа и процессор "
+"платежей</i> с железобетонной безопасностью и безупречным интерфейсом.\n"
+"\n"
+"— <b>Переводы КОДАМИ</b> - вы можете перевести любую сумму в <b>RUB, USD,"
+" EUR, BTC</b>  любому человеку абсолютно <i>бесплатно</i>и <i>без "
+"ограничений</i>.\n"
+"\n"
+"— <b>Биржа</b> - мгновенное исполнение по рынку.\n"
+"\n"
+"— <b>VPN</b>: самый быстрый VPN-сервис с оплатой криптой по выгодному "
+"курсу.\n"
+"\n"
+"— По желанию (мы не блокируем) <b>проверка блокировки стейблкоинов</b> "
+"(USDT, USDC, GUSD) и адреса Ethereum.\n"
+"\n"
+"— По желанию (мы не блокируем) <b>AML-проверка адресов Bitcoin</b>."
+msgstr ""
+"🦚 <b>Shortly about bot</b>\n"
+"        \n"
+"Most popular way of using this bot:\n"
+"BTC → UltraClean BTC → RUB\n"
+"\n"
+"🌲 people deposit BTC →\n"
+"🥬 exchange BTC to UltraClean BTC →\n"
+"🍇 withdraw to external addresses or exchange into USD →\n"
+"💶 withdraw USD <b>into RUB</b> <i>online</i> to any Russian bank via "
+"Faster Payments System (or get <i>cash</i>) from @ColdSig. At the moment "
+"fee for withdrawing crypto into RUB is only <code>3.50%</code>.\n"
+"\n"
+"💶 Also with @ColdSig you can buy & sell crypto in any volumes for cash "
+"24/7. 🌃 Very conveniently and securely.\n"
+"\n"
+"Other functions of this bot are:\n"
+"\n"
+"— <b>Wallet</b> - secure wallet, exchange and payment processor with "
+"flawless interface.\n"
+"\n"
+"— <b>CODES</b> transfers - you can transfer any amount of <b>RUB, USD, "
+"EUR, BTC</b> to any person absolutely <i>free of charge</i> and "
+"<i>without any restrictions</i>.\n"
+"\n"
+"— <b>Exchange</b> - instant market execution.\n"
+"\n"
+"— <b>VPN</b>: the fastest VPN service with payment in crypto at the best "
+"rate.\n"
+"\n"
+"— Optional (we never block) <b>stablecoins block check</b> (USDT, USDC, "
+"GUSD) & Ethereum address check.\n"
+"\n"
+"— Optional (we never block) <b>Bitcoin address AML check</b>."
+
+#: telegram/handlers/info.py:75
+msgid ""
+"🌲🥬 Включается возможность получения платежей по <b>Системе быстрых "
+"платежей (СБП)</b> в приложении Сбербанк Онлайн <b><a "
+"href=\"https://help.tinkoff.ru/black/debit-common/sbp-turn-on/\">в "
+"несколько касаний</a></b>."
 msgstr ""
 
-#: telegram/handlers/common.py:59
+#: telegram/handlers/info.py:80
 msgid ""
-"Список команд: \n"
-"/start - Начать диалог\n"
-"/info - Получить справку"
+"🌲🥬 <b>Карта банкоматов Тинькофф</b> (USD)\n"
+"\n"
+"    https://www.tinkoff.ru/maps/atm/?partner=tcs&currency=USD&amount=5000"
 msgstr ""
-"List Commands \n"
-"/start - Start\n"
-"/info - Information"
+
+#: telegram/handlers/info.py:87
+msgid ""
+"🌲🥬 Карта банкоматов Тинькофф\n"
+"    \n"
+"https://www.tinkoff.ru/maps/atm/?partner=tcs"
+msgstr ""
 
 #: telegram/utils/commands.py:10
 msgid "About this bot /// о боте"
@@ -423,4 +506,16 @@ msgstr[1] ""
 
 #~ msgid "🇺🇸 English"
 #~ msgstr "🇷🇺 Русский"
+
+#~ msgid ""
+#~ "Список команд: \n"
+#~ "/start - Начать диалог\n"
+#~ "/info - Получить справку"
+#~ msgstr ""
+#~ "List Commands \n"
+#~ "/start - Start\n"
+#~ "/info - Information"
+
+#~ msgid "♻"
+#~ msgstr ""
 

@@ -17,4 +17,7 @@ def register_handlers_common(dp: Dispatcher):
 
     dp.register_message_handler(info.cmd_info, Command("info"))
     dp.register_message_handler(info.cmd_rates, Command("rates"))
+    dp.register_message_handler(info.cmd_sbp, Command("sbp"))
+    dp.register_message_handler(info.cmd_atm, Command("atm"))
+    dp.register_message_handler(info.cmd_atmusd, Command("atmusd"))
     dp.register_message_handler(info.cmd_id, Command("id"))
