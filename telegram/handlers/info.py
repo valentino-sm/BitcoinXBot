@@ -1,7 +1,7 @@
 from aiogram import types
 from aiogram.types import InlineKeyboardMarkup
 
-from components.rates import Rates
+from components import Rates
 from telegram.keyboards.info import get_start_button, get_sbp_keyboard
 from telegram.utils import rate_limit
 from telegram.utils.reply import reply

@@ -7,8 +7,8 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.types import ParseMode, Update
 
+from components import AccountTelegram
 from components.account import account_ctx
-from components.account_telegram import AccountTelegram
 from telegram import filters, middlewares, handlers
 from telegram.utils import commands
 from utils import settings, i18n

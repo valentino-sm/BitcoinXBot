@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from components.account import account_ctx, AccountData
+from .account import account_ctx, AccountData
 from models.users import User as UserModel
 
 

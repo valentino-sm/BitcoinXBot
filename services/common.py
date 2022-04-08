@@ -1,8 +1,7 @@
 from decimal import Decimal
 from typing import NamedTuple
 
-from components.user import User
-from components.rates import Rates
+from components import User, Rates
 from models.users import User as UserModel
 from utils.misc import from_none_list, logic_div
 
