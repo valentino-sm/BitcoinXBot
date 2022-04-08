@@ -17,6 +17,7 @@ async def reply(msg: Union[types.Message, types.CallbackQuery] = None, **kwargs)
             if isinstance(msg, types.Message):
                 r = await msg.answer(**kwargs)
             elif isinstance(msg, types.CallbackQuery):
+                await msg.answer()
                 r = await msg.message.answer(**kwargs)
             else:
                 logger.warning("None for both Message & CallbackQuery provided")
