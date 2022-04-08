@@ -11,14 +11,15 @@ class Settings(BaseSettings):
     prefix_tg: str = "/tg"
     prefix_webhook: str = "/webhook"
 
-    admins: list = []
-
     db_driver: str = None
     db_host: str = None
     db_port: int = 3306
     db_user: str = None
     db_pass: str = None
     db_name: str = None
+
+    admins: list = []
+    reply_max_tries = 5
 
     def __init__(self, **values: Any):
         super().__init__(**values)

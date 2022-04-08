@@ -1,13 +1,12 @@
 from typing import Union
 
-from aiogram import types, Dispatcher
+from aiogram import types
 from aiogram.dispatcher import FSMContext
-from aiogram.types import User
-from loguru import logger
 
 from services.common import start, StartData
 from telegram.keyboards.common import get_start_markup, StartKeyboardText
 from telegram.utils import rate_limit
+from telegram.utils.reply import reply
 from utils.i18n import i18n
 from utils.i18n import gettext as _
 from utils.misc import from_none_dict
@@ -47,13 +46,7 @@ async def cmd_start(msg: Union[types.Message, types.CallbackQuery] = None):
     ])
     answer = {"text": START_TEXT.format(**from_none_dict(data._asdict()), assets=assets),
               "reply_markup": await get_start_markup(KBD_TEXT)}
-    if isinstance(msg, types.Message):
-        await msg.answer(**answer)
-    elif isinstance(msg, types.CallbackQuery):
-        await msg.message.answer(**answer)
-    else:
-        logger.warning("None for both Message & CallbackQuery provided")
-        await Dispatcher.get_current().bot.send_message(chat_id=User.get_current().id, **answer)
+    await reply(msg=msg, **answer)
 
 
 @rate_limit(3, 'language')

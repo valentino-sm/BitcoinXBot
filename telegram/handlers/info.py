@@ -4,6 +4,7 @@ from aiogram.types import InlineKeyboardMarkup
 from models.rates import Rates
 from telegram.keyboards.info import get_start_button, get_sbp_keyboard
 from telegram.utils import rate_limit
+from telegram.utils.reply import reply
 from utils.i18n import gettext as _
 
 
@@ -39,7 +40,7 @@ BTC → UltraClean BTC → RUB
 
 — По желанию (мы не блокируем) <b>AML-проверка адресов Bitcoin</b>."""
     )
-    await msg.answer(INFO_TEXT, reply_markup=await get_general_keyboard())
+    await reply(msg=msg, text=INFO_TEXT, reply_markup=await get_general_keyboard())
 
 
 async def cmd_pass(msg: types.Message):
@@ -68,7 +69,7 @@ async def cmd_rates(msg: types.Message):
 <b>CNY</b>/USD: <code>{logic_div(rates.CNY_RUB, rates.USD_RUB):.2f}</code>
 <b>CNY</b>/RUB: <code>{rates.CNY_RUB:.2f}</code>"""
     # TODO: rates scaling
-    await msg.answer(text=RATES_TEXT, reply_markup=await get_general_keyboard())
+    await reply(msg=msg, text=RATES_TEXT, reply_markup=await get_general_keyboard())
 
 
 async def cmd_sbp(msg: types.Message):
@@ -77,7 +78,7 @@ async def cmd_sbp(msg: types.Message):
         """🌲🥬 Включается возможность получения платежей по <b>Системе быстрых платежей (СБП)</b> в приложении Сбербанк Онлайн <b><a href="{link}">в несколько касаний</a></b>.""") \
         .format(link=link)
     keyboard = await get_sbp_keyboard(btn_link=_("🥬Включить СБП"), btn_back="🌲 Super!", link=link)
-    await msg.answer(text=SBP_TEXT, disable_web_page_preview=True, reply_markup=keyboard)
+    await reply(msg=msg, text=SBP_TEXT, disable_web_page_preview=True, reply_markup=keyboard)
 
 
 async def cmd_atm(msg: types.Message):
@@ -85,16 +86,16 @@ async def cmd_atm(msg: types.Message):
 
 https://www.tinkoff.ru/maps/atm/?partner=tcs""")
 
-    await msg.answer(text=SBPATM_TEXT, disable_web_page_preview=True, reply_markup=await get_general_keyboard())
+    await reply(msg=msg, text=SBPATM_TEXT, disable_web_page_preview=True, reply_markup=await get_general_keyboard())
 
 
 async def cmd_atmusd(msg: types.Message):
     ATMUSD_TEXT = _("""🌲🥬 <b>Карта банкоматов Тинькофф</b> (USD)
 
 https://www.tinkoff.ru/maps/atm/?partner=tcs&currency=USD&amount=5000""")
-    await msg.answer(text=ATMUSD_TEXT, disable_web_page_preview=True, reply_markup=await get_general_keyboard())
+    await reply(msg=msg, text=ATMUSD_TEXT, disable_web_page_preview=True, reply_markup=await get_general_keyboard())
 
 
 async def cmd_id(msg: types.Message):
-    await msg.answer(text=f"<code>{msg.from_user.id}</code> {msg.from_user.mention}",
+    await reply(msg=msg, text=f"<code>{msg.from_user.id}</code> {msg.from_user.mention}",
                      reply_markup=await get_general_keyboard())
