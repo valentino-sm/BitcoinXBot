@@ -1,12 +1,10 @@
 from decimal import Decimal
 from typing import NamedTuple
 
-from loguru import logger
-
 from components.user import User
+from components.rates import Rates
 from models.users import User as UserModel
-from models.rates import Rates
-from utils.misc import from_none_list
+from utils.misc import from_none_list, logic_div
 
 
 class StartData(NamedTuple):
@@ -25,8 +23,6 @@ async def sum_fiat_balance(user: UserModel, rates: Rates) -> Decimal:
         return Decimal(0)
     if not isinstance(rates, Rates):
         return user.BTC or Decimal(0)
-    logic_mult = lambda a, b: a*b if a and b else 0
-    logic_div = lambda n, d: d and n / d or 0
     l1 = [
         user.USD,
         user.RUB,
@@ -35,9 +31,9 @@ async def sum_fiat_balance(user: UserModel, rates: Rates) -> Decimal:
     ]
     l2 = [
         rates.BitMEX_BTC_USD,
-        logic_mult(rates.USD_RUB, rates.BitMEX_BTC_USD),
-        logic_mult(rates.EUR_RUB, rates.BitMEX_BTC_USD),
-        logic_mult(rates.CNY_RUB, rates.BitMEX_BTC_USD),
+        rates.BTC_RUB,
+        rates.BTC_EUR,
+        rates.BTC_CNY,
     ]
     return sum(logic_div(x, y) for x, y in zip(from_none_list(l1), from_none_list(l2)))
 

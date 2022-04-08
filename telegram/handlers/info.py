@@ -1,7 +1,7 @@
 from aiogram import types
 from aiogram.types import InlineKeyboardMarkup
 
-from models.rates import Rates
+from components.rates import Rates
 from telegram.keyboards.info import get_start_button, get_sbp_keyboard
 from telegram.utils import rate_limit
 from telegram.utils.reply import reply
@@ -54,21 +54,18 @@ async def cmd_faq(msg: types.Message):
 
 @rate_limit(1, 'start')
 async def cmd_rates(msg: types.Message):
-    logic_div = lambda n, d: d and n / d or 0
-    logic_mult = lambda a, b: a * b if a and b else 0
     rates: Rates = await Rates.query.gino.first()
     RATES_TEXT = f"""🌲 <b>Bitcoin, Ethereum (BitMEX)</b>
 <b>BTC</b>/USDT: <code>{rates.BitMEX_BTC_USD:.4f}</code>
 <b>ETH</b>/USDT: <code>{rates.BitMEX_ETH_USD:.4f}</code>
-<b>BTC</b>/RUB: <code>{logic_mult(rates.USD_RUB, rates.BitMEX_BTC_USD):.2f}</code>
-<b>ETH</b>/RUB: <code>{logic_mult(rates.USD_RUB, rates.BitMEX_ETH_USD):.2f}</code>
+<b>BTC</b>/RUB: <code>{rates.BTC_RUB:.2f}</code>
+<b>ETH</b>/RUB: <code>{rates.ETH_RUB:.2f}</code>
 
 🌿 <b>Fiat</b>
 <b>USD</b>/RUB: <code>{rates.USD_RUB:.2f}</code>
 <b>EUR</b>/RUB: <code>{rates.EUR_RUB:.2f}</code>
-<b>CNY</b>/USD: <code>{logic_div(rates.CNY_RUB, rates.USD_RUB):.2f}</code>
+<b>CNY</b>/USD: <code>{rates.CNY_USD:.2f}</code>
 <b>CNY</b>/RUB: <code>{rates.CNY_RUB:.2f}</code>"""
-    # TODO: rates scaling
     await reply(msg=msg, text=RATES_TEXT, reply_markup=await get_general_keyboard())
 
 

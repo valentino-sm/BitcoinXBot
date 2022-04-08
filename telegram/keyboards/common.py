@@ -1,9 +1,8 @@
 from typing import NamedTuple
 
 from aiogram import Dispatcher
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardMarkup
 from aiogram.utils.callback_data import CallbackData
-from loguru import logger
 
 from telegram.keyboards.inline.consts import InlineConstructor
 from utils import i18n

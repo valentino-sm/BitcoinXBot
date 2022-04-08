@@ -1,6 +1,8 @@
 """
 Some sugar functions
 """
+logic_div = lambda n, d: d and n / d or 0
+logic_mult = lambda a, b: a * b if a and b else 0
 
 
 def from_none_dict(_d: dict) -> dict:
