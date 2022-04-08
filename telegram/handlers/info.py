@@ -2,7 +2,7 @@ from aiogram import types
 from aiogram.types import InlineKeyboardMarkup
 
 from models.rates import Rates
-from telegram.keyboards.info import get_start_button
+from telegram.keyboards.info import get_start_button, get_sbp_keyboard
 from telegram.utils import rate_limit
 from utils.i18n import gettext as _
 
@@ -54,7 +54,7 @@ async def cmd_faq(msg: types.Message):
 @rate_limit(1, 'start')
 async def cmd_rates(msg: types.Message):
     logic_div = lambda n, d: d and n / d or 0
-    logic_mult = lambda a, b: a*b if a and b else 0
+    logic_mult = lambda a, b: a * b if a and b else 0
     rates: Rates = await Rates.query.gino.first()
     RATES_TEXT = f"""🌲 <b>Bitcoin, Ethereum (BitMEX)</b>
 <b>BTC</b>/USDT: <code>{rates.BitMEX_BTC_USD:.4f}</code>
@@ -72,23 +72,29 @@ async def cmd_rates(msg: types.Message):
 
 
 async def cmd_sbp(msg: types.Message):
-    SBP_TEXT = _("""🌲🥬 Включается возможность получения платежей по <b>Системе быстрых платежей (СБП)</b> в приложении Сбербанк Онлайн <b><a href="https://help.tinkoff.ru/black/debit-common/sbp-turn-on/">в несколько касаний</a></b>.""")
-    await msg.answer(text=SBP_TEXT, disable_web_page_preview=True, reply_markup=await get_general_keyboard())
+    link = "https://help.tinkoff.ru/black/debit-common/sbp-turn-on/"
+    SBP_TEXT = _(
+        """🌲🥬 Включается возможность получения платежей по <b>Системе быстрых платежей (СБП)</b> в приложении Сбербанк Онлайн <b><a href="{link}">в несколько касаний</a></b>.""") \
+        .format(link=link)
+    keyboard = await get_sbp_keyboard(btn_link=_("🥬Включить СБП"), btn_back="🌲 Super!", link=link)
+    await msg.answer(text=SBP_TEXT, disable_web_page_preview=True, reply_markup=keyboard)
 
 
 async def cmd_atm(msg: types.Message):
-    SBPATM_TEXT = _("""🌲🥬 <b>Карта банкоматов Тинькофф</b> (USD)
+    SBPATM_TEXT = _("""🌲🥬 <b>Карта банкоматов Тинькофф</b>
 
-    https://www.tinkoff.ru/maps/atm/?partner=tcs&currency=USD&amount=5000""")
-    await msg.answer(text=SBPATM_TEXT, reply_markup=await get_general_keyboard())
+https://www.tinkoff.ru/maps/atm/?partner=tcs""")
+
+    await msg.answer(text=SBPATM_TEXT, disable_web_page_preview=True, reply_markup=await get_general_keyboard())
 
 
 async def cmd_atmusd(msg: types.Message):
-    ATMUSD_TEXT = _("""🌲🥬 Карта банкоматов Тинькофф
-    
-https://www.tinkoff.ru/maps/atm/?partner=tcs""")
-    await msg.answer(text=ATMUSD_TEXT, reply_markup=await get_general_keyboard())
+    ATMUSD_TEXT = _("""🌲🥬 <b>Карта банкоматов Тинькофф</b> (USD)
+
+https://www.tinkoff.ru/maps/atm/?partner=tcs&currency=USD&amount=5000""")
+    await msg.answer(text=ATMUSD_TEXT, disable_web_page_preview=True, reply_markup=await get_general_keyboard())
 
 
 async def cmd_id(msg: types.Message):
-    await msg.answer(text=f"<code>{msg.from_user.id}</code> {msg.from_user.mention}", reply_markup=await get_general_keyboard())
+    await msg.answer(text=f"<code>{msg.from_user.id}</code> {msg.from_user.mention}",
+                     reply_markup=await get_general_keyboard())

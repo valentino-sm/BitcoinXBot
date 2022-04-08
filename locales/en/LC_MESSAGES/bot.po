@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-08 08:59+0500\n"
+"POT-Creation-Date: 2022-04-08 10:11+0500\n"
 "PO-Revision-Date: 2022-04-01 04:14+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -150,26 +150,31 @@ msgstr ""
 "\n"
 "— Optional (we never block) <b>Bitcoin address AML check</b>."
 
-#: telegram/handlers/info.py:75
+#: telegram/handlers/info.py:76
 msgid ""
 "🌲🥬 Включается возможность получения платежей по <b>Системе быстрых "
-"платежей (СБП)</b> в приложении Сбербанк Онлайн <b><a "
-"href=\"https://help.tinkoff.ru/black/debit-common/sbp-turn-on/\">в "
+"платежей (СБП)</b> в приложении Сбербанк Онлайн <b><a href=\"{link}\">в "
 "несколько касаний</a></b>."
 msgstr ""
+"🌲🥬 You can turn on incomming transfers by <b>Fast Payment System</b> "
+"(FPS, SBP, СБП) in Sberbank Online app <b>by several touches</b>."
 
-#: telegram/handlers/info.py:80
+#: telegram/handlers/info.py:79
+msgid "🥬Включить СБП"
+msgstr "🥬Turn on Fast Payments"
+
+#: telegram/handlers/info.py:84
+msgid ""
+"🌲🥬 <b>Карта банкоматов Тинькофф</b>\n"
+"\n"
+"https://www.tinkoff.ru/maps/atm/?partner=tcs"
+msgstr ""
+
+#: telegram/handlers/info.py:92
 msgid ""
 "🌲🥬 <b>Карта банкоматов Тинькофф</b> (USD)\n"
 "\n"
-"    https://www.tinkoff.ru/maps/atm/?partner=tcs&currency=USD&amount=5000"
-msgstr ""
-
-#: telegram/handlers/info.py:87
-msgid ""
-"🌲🥬 Карта банкоматов Тинькофф\n"
-"    \n"
-"https://www.tinkoff.ru/maps/atm/?partner=tcs"
+"https://www.tinkoff.ru/maps/atm/?partner=tcs&currency=USD&amount=5000"
 msgstr ""
 
 #: telegram/utils/commands.py:10
@@ -499,23 +504,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #~ msgid ""
-#~ "Список команд: \n"
-#~ "/start - Начать диалог\n"
-#~ "/help - Получить справку"
-#~ msgstr ""
-
-#~ msgid "🇺🇸 English"
-#~ msgstr "🇷🇺 Русский"
-
-#~ msgid ""
-#~ "Список команд: \n"
-#~ "/start - Начать диалог\n"
-#~ "/info - Получить справку"
-#~ msgstr ""
-#~ "List Commands \n"
-#~ "/start - Start\n"
-#~ "/info - Information"
-
-#~ msgid "♻"
+#~ "🌲🥬 Карта банкоматов Тинькофф\n"
+#~ "\n"
+#~ "https://www.tinkoff.ru/maps/atm/?partner=tcs"
 #~ msgstr ""
 
