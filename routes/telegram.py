@@ -6,12 +6,13 @@ from fastapi import APIRouter, BackgroundTasks, Depends, Request, Response, stat
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.types import ParseMode, Update
+from loguru import logger
 
 from components import AccountTelegram
 from components.account import account_ctx
 from telegram import filters, middlewares, handlers
 from telegram.utils import commands
-from utils import settings, i18n
+from utils import settings, i18n, ssl
 
 router = APIRouter()
 bot = Bot(settings.bot_token, parse_mode=ParseMode.HTML, validate_token=True)
@@ -27,7 +28,11 @@ async def on_startup():
     handlers.register_handlers_common(dp)
     await commands.register(bot)
     if (await bot.get_webhook_info()).url != settings.webhook_url:
-        await bot.set_webhook(settings.webhook_url)
+        if ssl.enable:
+            logger.warning("SSL ENABLED")
+            await bot.set_webhook(settings.webhook_url, certificate=ssl.cert_file)
+        else:
+            await bot.set_webhook(settings.webhook_url)
 
 
 @router.on_event("shutdown")
