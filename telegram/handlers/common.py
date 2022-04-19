@@ -5,8 +5,7 @@ from aiogram.dispatcher import FSMContext
 
 from services.common import start, StartData
 from telegram.keyboards.common import get_start_markup, StartKeyboardText
-from telegram.utils import rate_limit
-from telegram.utils.reply import reply
+from telegram.utils import rate_limit, reply
 from utils.i18n import i18n
 from utils.i18n import gettext as _
 from utils.misc import from_none_dict

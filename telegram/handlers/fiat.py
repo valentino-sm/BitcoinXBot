@@ -4,7 +4,7 @@ from aiogram.utils.callback_data import CallbackData
 from telegram.keyboards.common import cb_start
 from telegram.keyboards.info import get_start_button
 from telegram.keyboards.inline.consts import InlineConstructor
-from telegram.utils.reply import reply
+from telegram.utils import reply
 from utils import settings
 from utils.async_lru import alru_cache
 from utils.i18n import gettext as _
