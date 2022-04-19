@@ -26,8 +26,8 @@ async def cq_deposit(query: types.CallbackQuery):
 <i>переводом</i> от <code>{min_sum_bank}</code> руб.
 
 🎮🥬 <b>Стейблкоинами</b> → @ColdSig
-USDT • <code>{deposit_stable}</code>
-USDC • <code>{deposit_stable}</code>
+USDT • <code>{deposit_stablecoins}</code>
+USDC • <code>{deposit_stablecoins}</code>
 
 🎮🥬 <b>Любой криптой</b>, торгуемой на Binance • <code>{binance}</code> → @ColdSig"""
     )
@@ -49,9 +49,9 @@ async def cq_withdraw(query: types.CallbackQuery):
 в <i>любой</i> <b>банк РФ</b> • от <code>{min_sum_bank}</code> руб. /SBP
 1 USD = <code>{withdraw_rate}</code> руб. • <code>0%</code>
 
-🎮🥬 Стейблкоинами → @ColdSig
-USDT • <code>{withdraw_stable}</code> + gas
-USDC • <code>{withdraw_stable}</code> + gas
+🎮🥬 <b>Стейблкоинами</b> → @ColdSig
+USDT • <code>{withdraw_stablecoins}</code> + gas
+USDC • <code>{withdraw_stablecoins}</code> + gas
 
 🎮🥬 <b>Любой криптой</b>, торгуемой на Binance • <code>{binance}</code> → @ColdSig"""
     )

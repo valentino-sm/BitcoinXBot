@@ -29,8 +29,8 @@ class Settings(BaseSettings):
         "deposit_rate": "98.00",  # Онлайн по курсу 1 USD = руб
         "withdraw_rate": "75.00",
         "min_sum_bank": "30000",
-        "deposit_stable": "0%",
-        "withdraw_stable": "2%",
+        "deposit_stablecoins": "0%",
+        "withdraw_stablecoins": "2%",
         "binance": "0.75%",
     }
 
