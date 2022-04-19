@@ -1,8 +1,6 @@
 from aiogram import types
-from aiogram.utils.callback_data import CallbackData
 
-from telegram.keyboards.common import cb_start
-from telegram.keyboards.info import get_start_button
+from telegram.keyboards.common import cb_start, get_back_button
 from telegram.keyboards.inline.consts import InlineConstructor
 from telegram.utils import reply
 from utils import settings
@@ -31,7 +29,7 @@ USDC • <code>{deposit_stablecoins}</code>
 
 🎮🥬 <b>Любой криптой</b>, торгуемой на Binance • <code>{binance}</code> → @ColdSig"""
     )
-    keyboard = await get_start_button(_("🌲⚙️МЕНЮ"))
+    keyboard = await get_back_button(_("🌲⚙️МЕНЮ"))
     await reply(msg=query, text=DEPOSIT_TEXT.format(**settings.fiat_config), reply_markup=keyboard)
 
 
@@ -55,7 +53,7 @@ USDC • <code>{withdraw_stablecoins}</code> + gas
 
 🎮🥬 <b>Любой криптой</b>, торгуемой на Binance • <code>{binance}</code> → @ColdSig"""
     )
-    keyboard = await get_withdraw_keyboard(_("🌲⚙️МЕНЮ"), _("⚡️🥬💳В любой банк РФ!"))
+    keyboard = await _get_withdraw_keyboard(_("🌲⚙️МЕНЮ"), _("⚡️🥬💳В любой банк РФ!"))
     await reply(msg=query, text=WITHDRAW_TEXT.format(**settings.fiat_config), reply_markup=keyboard)
 
 
@@ -65,12 +63,12 @@ async def cq_anybank(query: types.CallbackQuery):
 в <i>любой</i> <b>банк РФ</b> • от <code>{min_sum_bank}</code> руб. /SBP
 1 USD = <code>{withdraw_rate}</code> руб. • <code>0%</code>"""
     )
-    keyboard = await get_start_button("🔙")
+    keyboard = await get_back_button("🔙")
     await reply(msg=query, text=ANYBANK_TEXT.format(**settings.fiat_config), reply_markup=keyboard)
 
 
 @alru_cache
-async def get_withdraw_keyboard(text1: str, text2: str):
+async def _get_withdraw_keyboard(text1: str, text2: str):
     return InlineConstructor.create_kb([{"text": text1, "cb": ({"property": "start", "value": "refresh"}, cb_start)},
                                         {"text": text2, "cb": ({"property": "fiat", "value": "anybank"}, cb_start)}
                                         ],

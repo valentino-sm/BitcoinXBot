@@ -8,7 +8,7 @@ from telegram.keyboards.inline.consts import InlineConstructor
 from utils import i18n
 from utils.async_lru import alru_cache
 
-cb_start = CallbackData("user", "property", "value")
+cb_start = CallbackData("start", "property", "value")
 
 
 class StartKeyboardText(NamedTuple):
@@ -55,3 +55,9 @@ async def get_start_markup(KBD_TEXT: StartKeyboardText) -> InlineKeyboardMarkup:
         btn_lang
         , schema=[2, 2, 1, 1, 1, 3]
     )
+
+
+@alru_cache
+async def get_back_button(text: str) -> InlineKeyboardMarkup:
+    return InlineConstructor.create_kb([{"text": text, "cb": ({"property": "start", "value": "refresh"}, cb_start)}],
+                                       schema=[1])

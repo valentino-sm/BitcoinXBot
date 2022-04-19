@@ -2,13 +2,11 @@ from aiogram import types
 from aiogram.types import InlineKeyboardMarkup
 
 from components import Rates
-from telegram.keyboards.info import get_start_button, get_sbp_keyboard
+from telegram.keyboards.inline.consts import InlineConstructor
+from telegram.keyboards.common import get_back_button, cb_start
 from telegram.utils import rate_limit, reply
+from utils.async_lru import alru_cache
 from utils.i18n import gettext as _
-
-
-async def get_general_keyboard() -> InlineKeyboardMarkup:
-    return await get_start_button(_("🌲 МЕНЮ"))
 
 
 async def cmd_info(msg: types.Message):
@@ -39,7 +37,7 @@ BTC → UltraClean BTC → RUB
 
 — По желанию (мы не блокируем) <b>AML-проверка адресов Bitcoin</b>."""
     )
-    await reply(msg=msg, text=INFO_TEXT, reply_markup=await get_general_keyboard())
+    await reply(msg=msg, text=INFO_TEXT, reply_markup=await _get_general_keyboard())
 
 
 async def cmd_pass(msg: types.Message):
@@ -65,7 +63,7 @@ async def cmd_rates(msg: types.Message):
 <b>EUR</b>/RUB: <code>{rates.EUR_RUB:.2f}</code>
 <b>CNY</b>/USD: <code>{rates.CNY_USD:.2f}</code>
 <b>CNY</b>/RUB: <code>{rates.CNY_RUB:.2f}</code>"""
-    await reply(msg=msg, text=RATES_TEXT, reply_markup=await get_general_keyboard())
+    await reply(msg=msg, text=RATES_TEXT, reply_markup=await _get_general_keyboard())
 
 
 async def cmd_sbp(msg: types.Message):
@@ -73,8 +71,16 @@ async def cmd_sbp(msg: types.Message):
     SBP_TEXT = _(
         """🌲🥬 Включается возможность получения платежей по <b>Системе быстрых платежей (СБП)</b> в приложении Сбербанк Онлайн <b><a href="{link}">в несколько касаний</a></b>.""") \
         .format(link=link)
-    keyboard = await get_sbp_keyboard(btn_link=_("🥬Включить СБП"), btn_back="🌲 Super!", link=link)
+    keyboard = await _get_sbp_keyboard(btn_link=_("🥬Включить СБП"), btn_back="🌲 Super!", link=link)
     await reply(msg=msg, text=SBP_TEXT, disable_web_page_preview=True, reply_markup=keyboard)
+
+
+@alru_cache
+async def _get_sbp_keyboard(btn_link: str, btn_back: str, link: str) -> InlineKeyboardMarkup:
+    return InlineConstructor.create_kb([{"text": btn_link, "url": link},
+                                        {"text": btn_back, "cb": ({"property": "start", "value": "refresh"}, cb_start)}
+                                        ],
+                                       schema=[1, 1])
 
 
 async def cmd_atm(msg: types.Message):
@@ -82,16 +88,20 @@ async def cmd_atm(msg: types.Message):
 
 https://www.tinkoff.ru/maps/atm/?partner=tcs""")
 
-    await reply(msg=msg, text=SBPATM_TEXT, disable_web_page_preview=True, reply_markup=await get_general_keyboard())
+    await reply(msg=msg, text=SBPATM_TEXT, disable_web_page_preview=True, reply_markup=await _get_general_keyboard())
 
 
 async def cmd_atmusd(msg: types.Message):
     ATMUSD_TEXT = _("""🌲🥬 <b>Карта банкоматов Тинькофф</b> (USD)
 
 https://www.tinkoff.ru/maps/atm/?partner=tcs&currency=USD&amount=5000""")
-    await reply(msg=msg, text=ATMUSD_TEXT, disable_web_page_preview=True, reply_markup=await get_general_keyboard())
+    await reply(msg=msg, text=ATMUSD_TEXT, disable_web_page_preview=True, reply_markup=await _get_general_keyboard())
 
 
 async def cmd_id(msg: types.Message):
     await reply(msg=msg, text=f"<code>{msg.from_user.id}</code> {msg.from_user.mention}",
-                     reply_markup=await get_general_keyboard())
+                reply_markup=await _get_general_keyboard())
+
+
+async def _get_general_keyboard() -> InlineKeyboardMarkup:
+    return await get_back_button(_("🌲 МЕНЮ"))
