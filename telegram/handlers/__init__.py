@@ -2,7 +2,7 @@ from aiogram import Dispatcher
 from aiogram.dispatcher.filters import CommandStart, Command
 
 from . import common, info, fiat
-from .error_handler import error_handler
+from ._error_handler import error_handler
 from telegram.keyboards.common import cb_start
 
 
