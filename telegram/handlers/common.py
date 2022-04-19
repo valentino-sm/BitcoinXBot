@@ -16,14 +16,14 @@ async def cmd_start(msg: Union[types.Message, types.CallbackQuery] = None):
     START_TEXT = _(
         "🎮🌲 <b>BitcoinXBot</b> • безопасный кошелёк-хранилище и процессор платежей с железобетонной безопасностью и безупречным интерфейсом. <b>Закрепи в топе.</b> /info\n"
         "\n"
-        "Ваши фиатные балансы: ≈ {sum_fiat_balance:.4f} <b>BTC</b>\n"
+        "Ваши фиатные балансы: ≈ <code>{sum_fiat_balance:.4f}</code> <b>BTC</b>\n"
         "{assets}"
         "\n"
         "Ваша криптовалюта:\n"
-        "🦚 {BTC:.8f} <b>BTC</b>\n"
+        "🦚 <code>{BTC:.8f}</code> <b>BTC</b>\n"
         "\n"
-        "Заработано: 🌲 {earned:.8f} <b>BTC</b>\n"
-        "Приглашено: {invited} пользователей.")
+        "Заработано: 🌲 <code>{earned:.8f}</code> <b>BTC</b>\n"
+        "Приглашено: <code>{invited}</code> пользователей.")
     KBD_TEXT = StartKeyboardText(
         fiat_deposit=_("Внести RUB, USD"),
         fiat_withdraw=_("Вывести RUB, USD"),
@@ -38,10 +38,10 @@ async def cmd_start(msg: Union[types.Message, types.CallbackQuery] = None):
 
     data: StartData = await start()
     assets = "".join([
-        f"🇺🇸 {data.USD:.4f} <b>USD</b>\n" if data.USD else "",
-        f"🇷🇺 {data.RUB:.4f} <b>RUB</b>\n" if data.RUB else "",
-        f"🇪🇺 {data.EUR:.4f} <b>EUR</b>\n" if data.EUR else "",
-        f"🇨🇳 {data.CNY:.4f} <b>CNY</b>\n" if data.CNY else "",
+        f"🇺🇸 <code>{data.USD:.4f}</code> <b>USD</b>\n" if data.USD else "",
+        f"🇷🇺 <code>{data.RUB:.4f}</code> <b>RUB</b>\n" if data.RUB else "",
+        f"🇪🇺 <code>{data.EUR:.4f}</code> <b>EUR</b>\n" if data.EUR else "",
+        f"🇨🇳 <code>{data.CNY:.4f}</code> <b>CNY</b>\n" if data.CNY else "",
     ])
     answer = {"text": START_TEXT.format(**from_none_dict(data._asdict()), assets=assets),
               "reply_markup": await get_start_markup(KBD_TEXT)}
