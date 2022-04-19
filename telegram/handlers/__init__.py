@@ -1,7 +1,7 @@
 from aiogram import Dispatcher
 from aiogram.dispatcher.filters import CommandStart, Command
 
-from . import common, info
+from . import common, info, fiat
 from .error_handler import error_handler
 from telegram.keyboards.common import cb_start
 
@@ -21,3 +21,7 @@ def register_handlers_common(dp: Dispatcher):
     dp.register_message_handler(info.cmd_atm, Command("atm"))
     dp.register_message_handler(info.cmd_atmusd, Command("atmusd"))
     dp.register_message_handler(info.cmd_id, Command("id"))
+
+    dp.register_callback_query_handler(fiat.cq_deposit, cb_start.filter(property="fiat", value="deposit"))
+    dp.register_callback_query_handler(fiat.cq_withdraw, cb_start.filter(property="fiat", value="withdraw"))
+    dp.register_callback_query_handler(fiat.cq_anybank, cb_start.filter(property="fiat", value="anybank"))

@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 
 from pydantic import BaseSettings
 
@@ -20,6 +20,19 @@ class Settings(BaseSettings):
 
     admins: list = []
     reply_max_tries = 5
+
+    fiat_config = {
+        "deposit_interest": "3.50%",  # Наличными в Москве
+        "withdraw_interest": "3.50%",
+        "min_sum_deposit": "350'000",
+        "min_sum_withdraw": "350'000",
+        "deposit_rate": "98.00",  # Онлайн по курсу 1 USD = руб
+        "withdraw_rate": "75.00",
+        "min_sum_bank": "30000",
+        "deposit_stable": "0%",
+        "withdraw_stable": "2%",
+        "binance": "0.75%",
+    }
 
     def __init__(self, **values: Any):
         super().__init__(**values)
