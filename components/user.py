@@ -23,9 +23,13 @@ class User:
         return user
 
     @staticmethod
+    # @AsyncTTL(time_to_live=3600)
+    async def get_from_id(userid: int):
+        return await UserModel.query.where(UserModel.userid == userid).gino.first()
+
+    @staticmethod
     async def get_current() -> UserModel:
-        userid = account_ctx.get().get_userid()
-        user = await UserModel.query.where(UserModel.userid == userid).gino.first()
+        user = await User.get_from_id(account_ctx.get().get_userid())
         if not user:
             user = await User.create_default()
         return user

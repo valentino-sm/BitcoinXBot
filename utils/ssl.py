@@ -10,6 +10,7 @@ class SSL:
     # -subj "/C=RU/ST=Saint-Petersburg/L=Saint-Petersburg/O=Example Inc/CN=[IP_ADDRESS]"
     cert = "cert.crt"
     pkey = "cert.key"
+    cert_file = None
     try:
         with open(os.path.join(os.getcwd(), cert), 'rb') as cert_file:
             cert_file = cert_file.read()

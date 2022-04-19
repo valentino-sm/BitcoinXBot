@@ -28,11 +28,7 @@ async def on_startup():
     handlers.register_handlers_common(dp)
     await commands.register(bot)
     if (await bot.get_webhook_info()).url != settings.webhook_url:
-        if ssl.enable:
-            logger.warning("SSL ENABLED")
-            await bot.set_webhook(settings.webhook_url, certificate=ssl.cert_file)
-        else:
-            await bot.set_webhook(settings.webhook_url)
+        await bot.set_webhook(settings.webhook_url, certificate=ssl.cert_file)
 
 
 @router.on_event("shutdown")
